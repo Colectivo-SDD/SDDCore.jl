@@ -1,0 +1,18 @@
+name = "SDDCore"
+uuid = "8f913c48-6887-4730-b137-e2c711b5bdd3"
+authors = [
+  "Renato Leriche Vázquez <r_lerichev@ciencias.unam.mx>",
+  "Luis Muñiz",
+  "Edgar Rodriguez",
+  "Daniel Blancas"
+]
+version = "0.1"
+
+[compat]
+julia = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
