@@ -11,10 +11,12 @@ include("sweepregions.jl")
 export
     PairInteger,
     PairReal,
-    iterative,
-    iterativeR,
-    iterativeC,
-    iterativeR2,
+    foriterative,
+    foriterativeR,
+    foriterativeC,
+    foriterativeR2,
+    @iterative, iterative,
+    @iterativeR2, iterativeR2,
     @sweeprectregion, sweeprectregion
 
 end # module
