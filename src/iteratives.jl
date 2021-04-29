@@ -55,25 +55,27 @@ end # function
 """
     @iterative(f,n)
 
-    Create the \$n\$-iterative of an one-valuated function \$f\$.
+Create the \$n\$-iterative of an one-valuated function \$f\$.
 """
 macro iterative(f,n)
-    expr_fx = :(f(x))
-    for i in 2:Main.eval(n) # Error, we shouldn't evaluate inside a macro
+    expr_fx = Expr(:call, f, :x)
+    #expr_fx = :(f(x))
+    N = :($n)
+    for i in 2:N
         expr_copy = copy(expr_fx)
         expr_fx.args[2] = expr_copy
     end
-    return :(x->$expr_fx)
+    :(x->$expr_fx)
 end
 
 """
     @iterativeR2(f,n)
 
-    Create the \$n\$-iterative of a function \$f:\\mathbb{R}^2\\rightarrow\\mathbb{R}^2\$.
+Create the \$n\$-iterative of a function \$f:\\mathbb{R}^2\\rightarrow\\mathbb{R}^2\$.
 """
 macro iterativeR2(f,n)
-    expr_fxy = :(f(x,y))
-    N = Main.eval(n) # Error, we shouldn't evaluate inside a macro
+    expr_fxy = :($f(x,y))
+    N = :($n)
     if N > 1
         expr_fxy = :(f(f(x,y)...))
         for i in 3:N
@@ -81,7 +83,7 @@ macro iterativeR2(f,n)
             expr_fxy.args[2] = expr_copy
         end
     end
-    return :((x,y)->$expr_fxy)
+    :((x,y)->$expr_fxy)
 end
 
 
