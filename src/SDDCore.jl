@@ -15,6 +15,7 @@ export
     foriterativeR,
     foriterativeC,
     foriterativeR2,
+    compose,
     @iterative, iterative,
     @iterativeR2, iterativeR2,
     @sweeprectregion, sweeprectregion

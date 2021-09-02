@@ -42,7 +42,7 @@ foriterativeC(f::Function, n::Integer) = foriterative(Complex,f,n)
 Create the \$n\$-iterative of a function \$f:\\mathbb{R}^2\\rightarrow\\mathbb{R}^2\$.
 """
 @inline function foriterativeR2(f::Function, n::Integer)
-    function fn(x::Real, y::Real)
+        function fn(x::Real, y::Real)
         xn, yn = x, y
         for i in 1:n
             xn, yn = f(xn,yn)
@@ -50,6 +50,18 @@ Create the \$n\$-iterative of a function \$f:\\mathbb{R}^2\\rightarrow\\mathbb{R
         xn, yn
     end # function
 end # function
+
+
+"""
+ToDo: Change name!
+"""
+function compose(f::Function, n::Int)
+    fn = f
+    for i in 2:n
+        fn = f∘fn
+    end
+    fn
+end
 
 
 """
