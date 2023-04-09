@@ -56,8 +56,7 @@ end # function
     iterative(f,n) -> Function
 
 Create the \$n\$-th iterative of a given function \$f\$.
-
-\$f\$ must receive and return the same data type.
+The function \$f\$ must receive and return the same data type.
 """
 function iterative(f::Function, n::Int)
     fn = f
@@ -68,7 +67,8 @@ function iterative(f::Function, n::Int)
 end # function
 
 
-#="""
+#=
+"""
     @iterative(f,n)
 
 Create the \$n\$-iterative of an one-valuated function \$f\$.
