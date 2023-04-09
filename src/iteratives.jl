@@ -53,18 +53,22 @@ end # function
 
 
 """
-ToDo: Change name!
+    iterative(f,n) -> Function
+
+Create the \$n\$-th iterative of a given function \$f\$.
+
+\$f\$ must receive and return the same data type.
 """
-function compose(f::Function, n::Int)
+function iterative(f::Function, n::Int)
     fn = f
     for i in 2:n
         fn = f∘fn
     end
     fn
-end
+end # function
 
 
-"""
+#="""
     @iterative(f,n)
 
 Create the \$n\$-iterative of an one-valuated function \$f\$.
@@ -78,9 +82,9 @@ macro iterative(f,n)
         expr_fx.args[2] = expr_copy
     end
     :(x->$expr_fx)
-end
+end=#
 
-"""
+#="""
     @iterativeR2(f,n)
 
 Create the \$n\$-iterative of a function \$f:\\mathbb{R}^2\\rightarrow\\mathbb{R}^2\$.
@@ -97,7 +101,7 @@ macro iterativeR2(f,n)
     end
     :((x,y)->$expr_fxy)
 end
-
+=#
 
 #=
 function iterative_ex(f::Function, n::Int)
