@@ -6,7 +6,7 @@ module SDDCore
 
 #include("tuples.jl")
 include("functionutils.jl")
-include("iteratives.jl")
+include("iterates.jl")
 include("sweepregions.jl")
 
 export
@@ -15,11 +15,11 @@ export
     functionkind2D,
     functionkind3D,
     createtopoint2D,
-    foriterative,
-    foriterativeR,
-    foriterativeC,
-    foriterativeR2,
-    iterative,
+    foriteratef,
+    foriteratefR,
+    foriteratefC,
+    foriteratefR2,
+    iteratef,
     #@iterative, iterative, # deprecated macros
     #@iterativeR2, iterativeR2,
     @sweeprectregion, sweeprectregion

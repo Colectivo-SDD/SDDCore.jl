@@ -1,10 +1,10 @@
 
 """
-    foriterative(T,f,n) -> Function
+    foriteratef(T,f,n) -> Function
 
-Create the \$n\$-iterative of an one-valuated function \$f\$.
+Create the \$n\$-iteratef of an one-valuated function \$f\$.
 """
-@inline function foriterative(::Type{T}, f::Function, n::Integer) where {T <: Number}
+@inline function foriteratef(::Type{T}, f::Function, n::Integer) where {T <: Number}
     function fn(t::T)
         tn = t
         for i in 1:n
@@ -15,33 +15,33 @@ Create the \$n\$-iterative of an one-valuated function \$f\$.
 end # function
 
 """
-    foriterative(f,n) -> Function
+    foriteratef(f,n) -> Function
 
-Create the \$n\$-iterative of a function \$f:\\mathbb{C}\\rightarrow\\mathbb{C}\$,
+Create the \$n\$-iteratef of a function \$f:\\mathbb{C}\\rightarrow\\mathbb{C}\$,
 receiving any numerical type.
 """
-foriterative(f::Function, n::Integer) = foriterative(Number,f,n)
+foriteratef(f::Function, n::Integer) = foriteratef(Number,f,n)
 
 """
-    foriterativeR(f,n) -> Function
+    foriteratefR(f,n) -> Function
 
-Create the \$n\$-iterative of a function \$f:\\mathbb{R}\\rightarrow\\mathbb{R}\$.
+Create the \$n\$-iteratef of a function \$f:\\mathbb{R}\\rightarrow\\mathbb{R}\$.
 """
-foriterativeR(f::Function, n::Integer) = foriterative(Real,f,n)
-
-"""
-    foriterativeC(f,n) -> Function
-
-Create the \$n\$-iterative of a function \$f:\\mathbb{C}\\rightarrow\\mathbb{C}\$.
-"""
-foriterativeC(f::Function, n::Integer) = foriterative(Complex,f,n)
+foriteratefR(f::Function, n::Integer) = foriteratef(Real,f,n)
 
 """
-    foriterativeR2(f,n) -> Function
+    foriteratefC(f,n) -> Function
 
-Create the \$n\$-iterative of a function \$f:\\mathbb{R}^2\\rightarrow\\mathbb{R}^2\$.
+Create the \$n\$-iteratef of a function \$f:\\mathbb{C}\\rightarrow\\mathbb{C}\$.
 """
-@inline function foriterativeR2(f::Function, n::Integer)
+foriteratefC(f::Function, n::Integer) = foriteratef(Complex,f,n)
+
+"""
+    foriteratefR2(f,n) -> Function
+
+Create the \$n\$-iteratef of a function \$f:\\mathbb{R}^2\\rightarrow\\mathbb{R}^2\$.
+"""
+@inline function foriteratefR2(f::Function, n::Integer)
         function fn(x::Real, y::Real)
         xn, yn = x, y
         for i in 1:n
@@ -53,12 +53,12 @@ end # function
 
 
 """
-    iterative(f,n) -> Function
+    iteratef(f,n) -> Function
 
-Create the \$n\$-th iterative of a given function \$f\$.
+Create the \$n\$-th iteratef of a given function \$f\$.
 The function \$f\$ must receive and return the same data type.
 """
-function iterative(f::Function, n::Int)
+function iteratef(f::Function, n::Int)
     fn = f
     for i in 2:n
         fn = f∘fn
@@ -69,11 +69,11 @@ end # function
 
 #=
 """
-    @iterative(f,n)
+    @iteratef(f,n)
 
-Create the \$n\$-iterative of an one-valuated function \$f\$.
+Create the \$n\$-iteratef of an one-valuated function \$f\$.
 """
-macro iterative(f,n)
+macro iteratef(f,n)
     expr_fx = Expr(:call, f, :x)
     #expr_fx = :(f(x))
     N = :($n)
@@ -85,11 +85,11 @@ macro iterative(f,n)
 end=#
 
 #="""
-    @iterativeR2(f,n)
+    @iteratefR2(f,n)
 
-Create the \$n\$-iterative of a function \$f:\\mathbb{R}^2\\rightarrow\\mathbb{R}^2\$.
+Create the \$n\$-iteratef of a function \$f:\\mathbb{R}^2\\rightarrow\\mathbb{R}^2\$.
 """
-macro iterativeR2(f,n)
+macro iteratefR2(f,n)
     expr_fxy = :($f(x,y))
     N = :($n)
     if N > 1
@@ -104,7 +104,7 @@ end
 =#
 
 #=
-function iterative_ex(f::Function, n::Int)
+function iteratef_ex(f::Function, n::Int)
     expr_fx = :($f(x))
     for i in 2:n
         expr_copy = copy(expr_fx)
@@ -114,7 +114,7 @@ function iterative_ex(f::Function, n::Int)
 end
 
 
-function iterativeR2_ex(f::Function, n::Int)
+function iteratefR2_ex(f::Function, n::Int)
     expr_fxy = :(f(x,y))
     if n > 1
         expr_fxy = :(f(f(x,y)...))
@@ -128,7 +128,7 @@ end
 =#
 
 #=
-function iterative_evex(f::Function, n::Int)
+function iteratef_evex(f::Function, n::Int)
     expr_fx = :($f(x))
     for i in 2:n
         expr_copy = copy(expr_fx)
@@ -138,7 +138,7 @@ function iterative_evex(f::Function, n::Int)
 end
 
 
-function iterativeR2_evex(f::Function, n::Int)
+function iteratefR2_evex(f::Function, n::Int)
     expr_fxy = :(f(x,y))
     if n > 1
         expr_fxy = :(f(f(x,y)...))
