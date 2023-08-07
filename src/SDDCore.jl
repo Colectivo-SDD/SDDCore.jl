@@ -4,8 +4,14 @@ Useful functions, structures and type aliases, common to the SDD packages ecosys
 """
 module SDDCore
 
+#using Reexport
+
+#@reexport using StaticArrays
+
+
 #include("tuples.jl")
 include("functionutils.jl")
+#include("fixedpoints.jl") # Future, using interval arithmetics
 include("iterates.jl")
 include("sweepregions.jl")
 
@@ -15,6 +21,9 @@ export
     functionkind2D,
     functionkind3D,
     createtopoint2D,
+    vectorize,
+    #fixedpoints,
+    #periodicpoints,
     foriteratef,
     foriteratefR,
     foriteratefC,

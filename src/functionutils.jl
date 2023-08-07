@@ -1,3 +1,9 @@
+
+using Reexport
+
+@reexport using StaticArrays
+
+
 """
 Verifying if a given function is suitable for dynamics in the complex plane or
 the cartesion plane, and the returning a symbol identifiying its domain.
@@ -39,4 +45,17 @@ function createtopoint2D(kind::Symbol)
         return (x::Real, y::Real) -> [x,y]
     end
     (x::Real, y::Real) -> complex(x,y)
+end
+
+
+
+"""
+Create a function `AbstractVector` \$\\mapsto\$ `SVector` from a function \$f(x,y)=(f_1(x,y),f_2(x,y))\$
+(or \$f(x,y,z)=(f_1(x,y,z),f_2(x,y,z),f_3(x,y,z))\$ if is the case).
+"""
+function vectorize(f::Function)
+    function fv(p::AbstractVector{T}) where {T<:Real}
+        SVector(f(p...)...) # To Do: correct using StaticArrays!!!
+        #[f(p...)...]
+    end
 end
