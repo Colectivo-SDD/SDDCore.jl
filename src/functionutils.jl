@@ -14,7 +14,7 @@ function functionkind2D(f::Function)
         return :onnumbers
     catch
         try
-            @assert f([1.0,1.0]) isa Vector && length(f([1.0,1.0])) == 2
+            @assert f([1.0,1.0]) isa AbstractVector && length(f([1.0,1.0])) == 2
             return :onvectors
         catch
             @error "Non-suitable function for 2D dynamic."
@@ -42,7 +42,7 @@ Create a function "topoint" from a pair of real numbers to a complex or vector p
 """
 function createtopoint2D(kind::Symbol)
     if kind == :onvectors
-        return (x::Real, y::Real) -> [x,y]
+        return (x::Real, y::Real) -> SVector(x,y)
     end
     (x::Real, y::Real) -> complex(x,y)
 end
@@ -55,7 +55,23 @@ Create a function `AbstractVector` \$\\mapsto\$ `SVector` from a function \$f(x,
 """
 function vectorize(f::Function)
     function fv(p::AbstractVector{T}) where {T<:Real}
-        SVector(f(p...)...) # To Do: correct using StaticArrays!!!
-        #[f(p...)...]
+        SVector(f(p...)...)
     end
 end
+
+
+import Base: abs, abs2
+
+"""
+Function norm \$||\\cdot||:\\mathbb{R}^n\\rightarrow\\mathbb{R}\$ given by
+
+    \$||(x_1,\\dots,x_n)||=\\sqrt{x_1^2+\\dots+x_n^2}\$
+"""
+abs(p::AbstractVector{T}) where {T<:Real} = sqrt(sum(p.^2))
+
+"""
+Function squared norm \$||\\cdot||^2:\\mathbb{R}^n\\rightarrow\\mathbb{R}\$ giveb by
+
+    \$||(x_1,\\dots,x_n)||^2=x_1^2+\\dots+x_n^2\$
+"""
+abs2(p::AbstractVector{T}) where {T<:Real} = sum(p.^2)

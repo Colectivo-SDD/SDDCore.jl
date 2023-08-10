@@ -67,6 +67,11 @@ function iteratef(f::Function, n::Int)
 end # function
 
 
+import Base.^
+
+^(f::Function, n::Int) = iteratef(f, n)
+
+
 #=
 """
     @iteratef(f,n)

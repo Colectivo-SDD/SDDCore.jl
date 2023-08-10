@@ -22,6 +22,7 @@ export
     functionkind3D,
     createtopoint2D,
     vectorize,
+    abs, abs2,
     #fixedpoints,
     #periodicpoints,
     foriteratef,
@@ -29,6 +30,7 @@ export
     foriteratefC,
     foriteratefR2,
     iteratef,
+    ^,
     #@iterative, iterative, # deprecated macros
     #@iterativeR2, iterativeR2,
     @sweeprectregion, sweeprectregion
